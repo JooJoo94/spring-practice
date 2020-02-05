@@ -10,7 +10,7 @@
 <body>
 	<div>
 		<button onclick="product_list()">상품보기</button>
-		<button>야구보기</button>
+		<button onclick="baseball_list()">야구보기</button>
 	</div>
 
 	<script
@@ -19,8 +19,8 @@
 		function product_list() {
 			location.href = '/practice/product';
 		}
-		function baseball() {
-			location.href = '/practice/';
+		function baseball_list() {
+			location.href = '/practice/baseball';
 		}
 	</script>
 

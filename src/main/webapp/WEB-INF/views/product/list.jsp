@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>제품</title>
 </head>
 <body>
 	<table border="1">
 		<tr>
-			<button>전체보기</button>
-			<button id="product_1" value="2">주방용품</button>
-			<button value="3">음식</button>
-			<button value="4">가격순</button>
-			<button value="5">주문순</button>
+			<button id="productlist" value="1">전체보기</button>
+			<button id="productkitchen" value="2">주방용품</button>
+			<button id="productfood" value="3">음식</button>
+			<button id="productprice">가격순</button>
+			<button id="productorder">주문순</button>
 		</tr>
 		<tr id="list">
 			<th>id</th>
@@ -33,25 +33,155 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
-		$('#product_1').on('click', function() {
+		var num;
+		// list
+		$('#productlist').on(
+				'click',
+				function() {
+					num = $('#productlist').val();
+					$.ajax({
+						type : 'GET',
+						url : '/practice/product/list',
+						dataType : 'text'
+					}).done(
+							function(products) {
+								$('.items').remove();
+								let result = JSON.parse(products);
+								for (var i=result.length-1; i >= 0 ; i--) {
+									var item_list = "<tr class='items'><td>"
+											+ result[i].id + "</td><td>"
+											+ result[i].productname
+											+ "</td><td>" + result[i].price
+											+ "</td><td>"
+											+ result[i].orderCount
+											+ "</td><td>" + result[i].type
+											+ "</td></tr>"
+									$('#list').after(item_list);
+								}
+								console.log(result);
+							}).fail(function(result) {
+						alert('서버 오류');
+					});
+				});
+		// kitchen
+		$('#productkitchen').on(
+				'click',
+				function() {
+					num = $('#productkitchen').val();
+					$.ajax({
+						type : 'GET',
+						url : '/practice/product/kitchen',
+						dataType : 'text'
+					}).done(
+							function(products) {
+								$('.items').remove();
+								let result = JSON.parse(products);
+								for (var i=result.length-1; i >= 0 ; i--) {
+									var item_list = "<tr class='items'><td>"
+											+ result[i].id + "</td><td>"
+											+ result[i].productname
+											+ "</td><td>" + result[i].price
+											+ "</td><td>"
+											+ result[i].orderCount
+											+ "</td><td>" + result[i].type
+											+ "</td></tr>"
+									$('#list').after(item_list);
+								}
+								console.log(num);
+							}).fail(function(result) {
+						alert('서버 오류');
+					});
+				});
 
-			let num = $('#product_1').val();
+		// food
+		$('#productfood').on(
+				'click',
+				function() {
+					num = $('#productfood').val();
+					$.ajax({
+						type : 'GET',
+						url : '/practice/product/food',
+						dataType : 'text'
+					}).done(
+							function(products) {
+								$('.items').remove();
+								let result = JSON.parse(products);
+								for (var i=result.length-1; i >= 0 ; i--) {
+									var item_list = "<tr class='items'><td>"
+											+ result[i].id + "</td><td>"
+											+ result[i].productname
+											+ "</td><td>" + result[i].price
+											+ "</td><td>"
+											+ result[i].orderCount
+											+ "</td><td>" + result[i].type
+											+ "</td></tr>"
+									$('#list').after(item_list);
+								}
+								console.log(num);
+							}).fail(function(result) {
+						alert('서버 오류');
+					});
+				});
 
-			$.ajax({
-				type : 'GET',
-				url : '/practice/product_'+num,
-				dataType : 'text'
-
-			}).done(function(products) {
-
-				$('#items').remove();
-
-			}).fail(function(result) {
-				alert('서버 오류');
-			});
-		});
+		// price
+		$('#productprice').on(				
+				'click',
+				function() {
+					$.ajax({
+						type : 'GET',
+						url : '/practice/product/price/'+num,
+						dataType : 'text'
+					}).done(
+							function(products) {
+								$('.items').remove();
+								let result = JSON.parse(products);
+								for (var i=result.length-1; i >= 0 ; i--) {
+									var item_list = "<tr class='items'><td>"
+											+ result[i].id + "</td><td>"
+											+ result[i].productname
+											+ "</td><td>" + result[i].price
+											+ "</td><td>"
+											+ result[i].orderCount
+											+ "</td><td>" + result[i].type
+											+ "</td></tr>"
+									$('#list').after(item_list);
+								}
+								console.log(num);
+							}).fail(function(result) {
+						alert('서버 오류');
+					});
+				});
+		// order
+		$('#productorder').on(
+				'click',
+				function() {
+					$.ajax({
+						type : 'GET',
+						url : '/practice/product/order/'+num,
+						dataType : 'text'
+					}).done(
+							function(products) {
+								$('.items').remove();
+								let result = JSON.parse(products);
+								for (var i=result.length-1; i >= 0 ; i--) {
+									var item_list = "<tr class='items'><td>"
+											+ result[i].id + "</td><td>"
+											+ result[i].productname
+											+ "</td><td>" + result[i].price
+											+ "</td><td>"
+											+ result[i].orderCount
+											+ "</td><td>" + result[i].type
+											+ "</td></tr>"
+									$('#list').after(item_list);
+								}
+								console.log(num);
+							}).fail(function(result) {
+						alert('서버 오류');
+					});
+				});
 	</script>
 </body>
 </html>

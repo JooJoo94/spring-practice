@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.cos.springboot.repository.BaseballRepository">
+
+	<select id="findAllTeam"
+		resultType="com.cos.springboot.model.Team">
+		select * from team order by id
+	</select>
+	<select id="findPlayer"
+		resultType="com.cos.springboot.model.Player">
+		select * from player where teamId=#{teamId} order by id
+	</select>
+	<select id="findPlayerDetail"
+		resultType="com.cos.springboot.model.Player">
+		select * from player where id=#{id}
+	</select>
+
+</mapper>
